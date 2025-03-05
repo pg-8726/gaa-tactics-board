@@ -139,5 +139,3 @@ function attachDragEvents() {
 
 // Initial render of players
 renderPlayers();
-​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
-​​​​​​​​​​​​​​​​​
