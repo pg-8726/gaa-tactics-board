@@ -1,11 +1,29 @@
-let players = JSON.parse(localStorage.getItem('gaaPlayers')) || [];
-
-function savePlayers() {
-    localStorage.setItem('gaaPlayers', JSON.stringify(players));
+// Load players from localStorage or initialize empty array
+let players = [];
+try {
+    players = JSON.parse(localStorage.getItem('gaaPlayers')) || [];
+} catch (e) {
+    console.error("Error loading from localStorage:", e);
 }
 
+// Function to save players to localStorage
+function savePlayers() {
+    try {
+        localStorage.setItem('gaaPlayers', JSON.stringify(players));
+        console.log("Players saved:", players); // Debug log
+    } catch (e) {
+        console.error("Error saving to localStorage:", e);
+        alert("Failed to save players. Your browser may block localStorage.");
+    }
+}
+
+// Function to render players in the list
 function renderPlayers() {
     const playerList = document.getElementById("players");
+    if (!playerList) {
+        console.error("Player list element not found!");
+        return;
+    }
     playerList.innerHTML = "";
     players.forEach(player => {
         const div = document.createElement("div");
@@ -19,31 +37,54 @@ function renderPlayers() {
     attachDragEvents();
 }
 
-document.getElementById("add-player-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const name = document.getElementById("player-name").value.trim();
-    const position = document.getElementById("player-position").value;
-    if (players.some(p => p.position === position)) {
-        alert("This position is already filled!");
-        return;
-    }
-    const newPlayer = { name, position };
-    players.push(newPlayer);
-    savePlayers();
-    renderPlayers();
-    document.getElementById("player-name").value = "";
-    document.getElementById("player-position").selectedIndex = 0;
-});
+// Handle form submission to add a player
+const form = document.getElementById("add-player-form");
+if (form) {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nameInput = document.getElementById("player-name");
+        const positionSelect = document.getElementById("player-position");
+        if (!nameInput || !positionSelect) {
+            console.error("Form inputs not found!");
+            return;
+        }
+        const name = nameInput.value.trim();
+        const position = positionSelect.value;
 
+        if (!name || !position) {
+            alert("Please enter a name and select a position!");
+            return;
+        }
+
+        if (players.some(p => p.position === position)) {
+            alert("This position is already filled!");
+            return;
+        }
+
+        const newPlayer = { name, position };
+        players.push(newPlayer);
+        savePlayers();
+        renderPlayers();
+
+        nameInput.value = "";
+        positionSelect.selectedIndex = 0;
+    });
+} else {
+    console.error("Form element not found!");
+}
+
+// Drag-and-Drop Logic (Desktop + Mobile)
 function attachDragEvents() {
     const draggables = document.querySelectorAll(".player");
     const dropZones = document.querySelectorAll(".drop-zone");
 
     draggables.forEach(draggable => {
+        // Desktop drag events
         draggable.addEventListener("dragstart", (e) => {
             e.dataTransfer.setData("text/plain", draggable.dataset.name);
         });
 
+        // Mobile touch events
         let touchStartX, touchStartY;
         draggable.addEventListener("touchstart", (e) => {
             touchStartX = e.touches[0].clientX;
@@ -96,5 +137,7 @@ function attachDragEvents() {
     });
 }
 
+// Initial render of players
 renderPlayers();
 ​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+​​​​​​​​​​​​​​​​​
