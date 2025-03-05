@@ -1,0 +1,142 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px;
+}
+.player-list {
+    flex: 1 1 300px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.player {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f0f0f0;
+    cursor: move;
+    touch-action: none;
+}
+#add-player-form {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+#add-player-form input, #add-player-form select, #add-player-form button {
+    padding: 5px;
+    font-size: 14px;
+    flex: 1 1 auto;
+}
+#add-player-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#add-player-form button:hover {
+    background-color: #45a049;
+}
+.tactics-board {
+    flex: 1 1 300px;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    background-color: #2e8b57;
+    border: 2px solid #fff;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.tactics-board::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+}
+.tactics-board::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    background-color: #fff;
+}
+#field::before, #field::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 10px;
+    background-color: #fff;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#field::before { top: 10px; }
+#field::after { bottom: 10px; }
+.drop-zone {
+    width: 60px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px dashed #fff;
+    position: absolute;
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+    color: #fff;
+    user-select: none;
+}
+.drop-zone[data-position="GK"] { top: 5%; left: 45%; }
+.drop-zone[data-position="FB1"] { top: 20%; left: 30%; }
+.drop-zone[data-position="FB2"] { top: 20%; left: 45%; }
+.drop-zone[data-position="FB3"] { top: 20%; left: 60%; }
+.drop-zone[data-position="HB1"] { top: 35%; left: 30%; }
+.drop-zone[data-position="HB2"] { top: 35%; left: 45%; }
+.drop-zone[data-position="HB3"] { top: 35%; left: 60%; }
+.drop-zone[data-position="MF1"] { top: 50%; left: 40%; }
+.drop-zone[data-position="MF2"] { top: 50%; left: 50%; }
+.drop-zone[data-position="HF1"] { top: 65%; left: 30%; }
+.drop-zone[data-position="HF2"] { top: 65%; left: 45%; }
+.drop-zone[data-position="HF3"] { top: 65%; left: 60%; }
+.drop-zone[data-position="FF1"] { top: 80%; left: 45%; }
+.drop-zone.drag-over {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 5px;
+    }
+    .player-list, .tactics-board {
+        width: 100%;
+        max-width: none;
+    }
+    .tactics-board {
+        height: 50vh;
+    }
+    .drop-zone {
+        width: 50px;
+        height: 25px;
+        font-size: 10px;
+        line-height: 25px;
+    }
+    #add-player-form input, #add-player-form select, #add-player-form button {
+        font-size: 12px;
+        padding: 3px;
+    }
+}
+@media (max-width: 480px) {
+    .drop-zone {
+        width: 40px;
+        height: 20px;
+        font-size: 8px;
+        line-height: 20px;
+    }
+    #field::before, #field::after {
+        width: 40px;
+    }
+}
+​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
